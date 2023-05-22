@@ -58,6 +58,8 @@ public class UrlShortenerService {
         Url url = repository.searchByShortUrl(shortUrl);
 
         if (url != null) {
+            url.setClicks(url.getClicks() + 1);
+            repository.save(url);
             response.sendRedirect(url.getLongUrl());
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);

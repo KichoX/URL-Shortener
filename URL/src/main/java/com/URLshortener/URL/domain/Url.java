@@ -16,8 +16,12 @@ public class Url {
     @Column(name = "short_url")
     private String shortUrl;
 
+    @Column(name = "clicks")
+    private int clicks;
+
     public Url() {
     }
+
 
     public Url(Long id, String longUrl, String shortUrl) {
         this.id = id;
@@ -28,6 +32,7 @@ public class Url {
     public Url(String longUrl, String shortUrl) {
         this.longUrl = longUrl;
         this.shortUrl = shortUrl;
+        this.clicks = 0;
     }
 
     public Long getId() {
@@ -50,7 +55,13 @@ public class Url {
         return shortUrl;
     }
 
-    public void setShortUrl(String shortUrl) {
-        this.shortUrl = shortUrl;
+    public void setShortUrl(String shortUrl) { this.shortUrl = shortUrl; }
+
+    public int getClicks() {
+        return clicks;
+    }
+
+    public void setClicks(int clicks) {
+        this.clicks = clicks;
     }
 }
