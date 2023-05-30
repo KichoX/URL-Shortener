@@ -1,0 +1,11 @@
+<div>
+  <input type="text" [(ngModel)]="toShorten" />
+  <button (click)="shorten()">Shorten</button>
+</div>
+<div *ngIf="url">
+  <h2 (click)="redirectUrl()">Short URL:{{ url.shortUrl }}</h2>
+  <button (click)="noClicks()">Show number of clicks</button>
+  <div *ngIf="showClicks">
+    <h3>{{ url.clicks }}</h3>
+  </div>
+</div>
