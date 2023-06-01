@@ -1,25 +1,103 @@
 <html>
-<head>
+  <head>
+      <link rel="stylesheet" href="main.component.css">
     <title>URL Shortener</title>
-</head>
-<body>
-  <div class="wrapper">
+  </head>
+  <body>
+    <div class="wrapper">
       <h1>URL Shortener</h1>
-      <div class="container">
+      <div class="container-wrapper">
+        <div class="container-left">
           <div>
-              <input type="text" [(ngModel)]="toShorten" placeholder="Enter your long URL" />
-              <button (click)="shorten()" class="btn">Shorten</button>
+            <input
+              type="text"
+              [(ngModel)]="toShorten"
+              placeholder="Enter your long URL"
+            />
+            <button (click)="shorten()" class="btn">Shorten</button>
           </div>
           <div *ngIf="url">
-              <h2 (click)="redirectUrl()">Short URL: {{ url.shortUrl }}</h2>
-              <div class="clicks">
-                  <button (click)="noClicks()" class="btn">Show number of clicks</button>
-                  <div *ngIf="showClicks">
-                      <h3>{{ url.clicks }}</h3>
-                  </div>
+            <h2 (click)="redirectUrl()">Short URL: {{ url.shortUrl }}</h2>
+            <div class="clicks">
+              <button (click)="noClicks()" class="btn">
+                Show number of clicks
+              </button>
+              <div *ngIf="showClicks">
+                <h3>{{ url.clicks }}</h3>
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-right">
+          <div class="history-container">
+            <p>Filter by :</p>
+            <div class="clicks-container">
+              <button class="btn">Ascending</button>
+              <button class="btn">Descending</button>
+            </div>
+            <div class="scrollable-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Short URL</th>
+                    <th>Long URL</th>
+                    <th>Clicks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Data 1</td>
+                    <td>Data 2</td>
+                    <td>Data 3</td>
+                  </tr>
+                  <tr>
+                    <td>Data 4</td>
+                    <td>Data 5</td>
+                    <td>Data 6</td>
+                  </tr>
+                  <tr>
+                    <td>Data 1</td>
+                    <td>Data 2</td>
+                    <td>Data 3</td>
+                  </tr>
+                  <tr>
+                    <td>Data 4</td>
+                    <td>Data 5</td>
+                    <td>Data 6</td>
+                  </tr>
+                  <tr>
+                    <td>Data 1</td>
+                    <td>Data 2</td>
+                    <td>Data 3</td>
+                  </tr>
+                  <tr>
+                    <td>Data 4</td>
+                    <td>Data 5</td>
+                    <td>Data 6</td>
+                  </tr>
+                 
+                  <!-- Add more rows as needed -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-wrapper">
+        <div class="container-left">
+          <div class="input-container">
+            <input type="text" placeholder="Old Short URL" />
+            <input type="text" placeholder="New Short URL" />
+            <button class="btn-2">Update</button>
+          </div>
+        </div>
+        <div class="container-right">
+            <div class="input-container">
+              <input type="text" placeholder="Delete Any Shorten URL" />
+              <button class="btn-2">Delete</button>
+            </div>
           </div>
       </div>
-  </div>
-</body>
+    </div>
+  </body>
 </html>
