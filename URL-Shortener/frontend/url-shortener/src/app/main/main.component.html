@@ -1,6 +1,6 @@
 <html>
   <head>
-      <link rel="stylesheet" href="main.component.css">
+    <link rel="stylesheet" href="main.component.css" />
     <title>URL Shortener</title>
   </head>
   <body>
@@ -30,10 +30,10 @@
         </div>
         <div class="container-right">
           <div class="history-container">
-            <p>Filter by :</p>
+            <p>Filter by clicks :</p>
             <div class="clicks-container">
-              <button class="btn">Ascending</button>
-              <button class="btn">Descending</button>
+              <button class="btn" (click)="ascendingFunc()">Ascending</button>
+              <button class="btn" (click)="descendingFunc()">Descending</button>
             </div>
             <div class="scrollable-table">
               <table>
@@ -45,38 +45,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Data 1</td>
-                    <td>Data 2</td>
-                    <td>Data 3</td>
+                  <tr *ngFor="let item of allUrls">
+                    <td>{{ item.shortUrl }}</td>
+                    <td>{{ item.longUrl }}</td>
+                    <td>{{ item.clicks }}</td>
                   </tr>
-                  <tr>
-                    <td>Data 4</td>
-                    <td>Data 5</td>
-                    <td>Data 6</td>
-                  </tr>
-                  <tr>
-                    <td>Data 1</td>
-                    <td>Data 2</td>
-                    <td>Data 3</td>
-                  </tr>
-                  <tr>
-                    <td>Data 4</td>
-                    <td>Data 5</td>
-                    <td>Data 6</td>
-                  </tr>
-                  <tr>
-                    <td>Data 1</td>
-                    <td>Data 2</td>
-                    <td>Data 3</td>
-                  </tr>
-                  <tr>
-                    <td>Data 4</td>
-                    <td>Data 5</td>
-                    <td>Data 6</td>
-                  </tr>
-                 
-                  <!-- Add more rows as needed -->
                 </tbody>
               </table>
             </div>
@@ -86,17 +59,29 @@
       <div class="container-wrapper">
         <div class="container-left">
           <div class="input-container">
-            <input type="text" placeholder="Old Short URL" />
-            <input type="text" placeholder="New Short URL" />
-            <button class="btn-2">Update</button>
+            <input
+              type="text"
+              placeholder="Old Short URL"
+              [(ngModel)]="oldShortUrl"
+            />
+            <input
+              type="text"
+              placeholder="New Short URL"
+              [(ngModel)]="newShortUrl"
+            />
+            <button class="btn-2" (click)="update()">Update</button>
           </div>
         </div>
         <div class="container-right">
-            <div class="input-container">
-              <input type="text" placeholder="Delete Any Shorten URL" />
-              <button class="btn-2">Delete</button>
-            </div>
+          <div class="input-container">
+            <input
+              type="text"
+              placeholder="Delete Any Shorten URL"
+              [(ngModel)]="toDelete"
+            />
+            <button class="btn-2" (click)="delete()">Delete</button>
           </div>
+        </div>
       </div>
     </div>
   </body>

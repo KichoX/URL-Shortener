@@ -86,7 +86,7 @@ body {
   
   .scrollable-table {
     padding-top: 15px;
-    max-height: 115px; /* Adjust the desired maximum height */
+    max-height: 115px; 
     overflow-y: auto;
   }
   
