@@ -1,11 +1,88 @@
-<div>
-  <input type="text" [(ngModel)]="toShorten" />
-  <button (click)="shorten()">Shorten</button>
-</div>
-<div *ngIf="url">
-  <h2 (click)="redirectUrl()">Short URL:{{ url.shortUrl }}</h2>
-  <button (click)="noClicks()">Show number of clicks</button>
-  <div *ngIf="showClicks">
-    <h3>{{ url.clicks }}</h3>
-  </div>
-</div>
+<html>
+  <head>
+    <link rel="stylesheet" href="main.component.css" />
+    <title>URL Shortener</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>URL Shortener</h1>
+      <div class="container-wrapper">
+        <div class="container-left">
+          <div>
+            <input
+              type="text"
+              [(ngModel)]="toShorten"
+              placeholder="Enter your long URL"
+            />
+            <button (click)="shorten()" class="btn">Shorten</button>
+          </div>
+          <div *ngIf="url">
+            <h2 (click)="redirectUrl()">Short URL: {{ url.shortUrl }}</h2>
+            <div class="clicks">
+              <button (click)="noClicks()" class="btn">
+                Show number of clicks
+              </button>
+              <div *ngIf="showClicks">
+                <h3>{{ url.clicks }}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-right">
+          <div class="history-container">
+            <p>Filter by clicks :</p>
+            <div class="clicks-container">
+              <button class="btn" (click)="ascendingFunc()">Ascending</button>
+              <button class="btn" (click)="descendingFunc()">Descending</button>
+            </div>
+            <div class="scrollable-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Short URL</th>
+                    <th>Long URL</th>
+                    <th>Clicks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of allUrls">
+                    <td>{{ item.shortUrl }}</td>
+                    <td>{{ item.longUrl }}</td>
+                    <td>{{ item.clicks }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-wrapper">
+        <div class="container-left">
+          <div class="input-container">
+            <input
+              type="text"
+              placeholder="Old Short URL"
+              [(ngModel)]="oldShortUrl"
+            />
+            <input
+              type="text"
+              placeholder="New Short URL"
+              [(ngModel)]="newShortUrl"
+            />
+            <button class="btn-2" (click)="update()">Update</button>
+          </div>
+        </div>
+        <div class="container-right">
+          <div class="input-container">
+            <input
+              type="text"
+              placeholder="Delete Any Shorten URL"
+              [(ngModel)]="toDelete"
+            />
+            <button class="btn-2" (click)="delete()">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

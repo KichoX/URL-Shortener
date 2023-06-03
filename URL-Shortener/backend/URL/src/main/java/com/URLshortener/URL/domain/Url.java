@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "urls")
-public class Url {
+public class Url implements Comparable<Url> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -69,5 +69,11 @@ public class Url {
     public String toJsonString() {
         Gson gson = new Gson();
         return gson.toJson(this);
+    }
+
+
+    @Override
+    public int compareTo(Url o) {
+        return Integer.compare(this.clicks, o.clicks);
     }
 }

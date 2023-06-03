@@ -5,13 +5,14 @@ import com.URLshortener.URL.domain.Url;
 import com.URLshortener.URL.repository.UrlRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class UrlShortenerService {
@@ -32,7 +33,7 @@ public class UrlShortenerService {
     private String saveAndHash(String longUrl) {
         String hashed = hash(longUrl);
         Url url = repository.searchByShortUrl(hashed);
-        if(url == null) {
+        if (url == null) {
             url = new Url(longUrl, hashed);
             repository.save(url);
         }
@@ -56,7 +57,6 @@ public class UrlShortenerService {
 
             return hexString.substring(0, 6);
         } catch (NoSuchAlgorithmException e) {
-            // Handle exception appropriately
             return "";
         }
     }
@@ -77,7 +77,6 @@ public class UrlShortenerService {
         if (validateUrl(shortUrl)) {
             return url.toJsonString();
         } else {
-//            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: URL is null");
             return "Error: URL is null";
         }
     }
@@ -92,5 +91,33 @@ public class UrlShortenerService {
         }
 
         return false;
+    }
+
+    public List<String> getAll() {
+        return repository.findAll().stream()
+                .sorted(Comparator.reverseOrder())
+                .map(Url::toJsonString)
+                .toList();
+    }
+
+    public ResponseEntity<String> delete(String shortCode) {
+        Url url = repository.searchByShortUrl(shortCode);
+        if (url != null) {
+            repository.delete(url);
+            return ResponseEntity.ok("OK");
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity<String> update(String oldCode, String newCode) {
+        Url url = repository.searchByShortUrl(oldCode);
+        if (url != null) {
+            repository.delete(url);
+            url.setShortUrl(newCode);
+            repository.save(url);
+            return ResponseEntity.ok("OK");
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }
